@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-    sistema_financeiro:
+    sistema_gestao_financeira:
         build:
             context: .
             dockerfile: Dockerfile
@@ -10,7 +10,7 @@ services:
         volumes:
             - ./:/var/www
         networks:
-            - sistema-financeiro-network
+            - sistema-gestao-financeira
     # nginx
     nginx:
         container_name: servidor-nginx
@@ -18,13 +18,29 @@ services:
         platform: linux/x86_64
         restart: unless-stopped
         ports:
-            - "8001:80"
+            - "8989:80"
         volumes:
             - ./:/var/www
             - ./docker/nginx/:/etc/nginx/conf.d/
         networks:
-            - sistema-financeiro-network
+            - sistema-gestao-financeira
      # db mysql ${DB_DATABASE} //Busca do arquivo .env
+    mysql:
+        container_name: banco-mysql
+        platform: linux/x86_64
+        image: mysql:5.7.22
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+        volumes:
+            - ./.docker/mysql/dbdata:/var/lib/mysql
+        ports:
+            - "3388:3306"
+        networks:
+            - sistema-gestao-financeira
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
@@ -37,10 +53,10 @@ services:
         ports:
             - 8899:80
         networks:
-            - sistema-financeiro-network
+            - sistema-gestao-financeira
 
 networks:
-    sistema-financeiro-network:
+    sistema-gestao-financeira:
         driver: bridge
 
 #Doc. de utilizacao
