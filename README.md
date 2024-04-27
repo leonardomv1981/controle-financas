@@ -27,7 +27,7 @@ LOG_LEVEL=debug
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
-DB_DATABASE=sistema_gestao
+DB_DATABASE=sistema_gestao_financeira
 DB_USERNAME=root
 DB_PASSWORD=root
 

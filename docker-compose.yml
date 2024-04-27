@@ -44,6 +44,7 @@ services:
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
+        platform: linux/x86_64
         container_name: phpmyadmin
         links:
             - mysql
