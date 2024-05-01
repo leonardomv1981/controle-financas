@@ -48,17 +48,30 @@
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2" href="{{ route('bancos.listar') }}">
                         <svg class="bi"><use xlink:href="#programas"/></svg>
-                        Adicionar banco
+                        Bancos
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2" href="">
+                    <a class="nav-link d-flex align-items-center gap-2" href="{{ route('bandeiras.listar') }}">
+                        <svg class="bi"><use xlink:href="#programas"/></svg>
+                        Bandeiras
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2" href="{{ route('cartoes.listar')}}">
                         <svg class="bi"><use xlink:href="#icone-mais"/></svg>
-                        Adicionar movimento
+                        Cartões
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2" href="{{ route('movimentacaocartoes.listar') }}">
+                        <svg class="bi"><use xlink:href="#icone-mais"/></svg>
+                        Movimentação de cartão
                     </a>
                 </li>
             </ul>
 
+            
             <hr class="my-3">
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1 text-body-secondary text-uppercase">
                 <span>Meus programas:</span>  

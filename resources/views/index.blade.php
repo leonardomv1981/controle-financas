@@ -8,7 +8,7 @@
         <meta name="description" content="">
         <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
         <meta name="generator" content="Hugo 0.118.2">
-        <title>Gestão dos meus pontos</title>
+        <title>Gestão financeira</title>
 
         @yield('styles')
 
@@ -68,5 +68,7 @@
     <script src="{{ asset('js/dashboard.js') }}"></script></body>
     <script src="{{ asset('js/index.js') }}"></script>
     <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+
+    
 
 </html>

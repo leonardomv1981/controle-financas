@@ -30,7 +30,7 @@ $(document).ready(function () {
     
 });
 
-function deleteRegistroPontos(rotaUrl, id_objeto) {
+function deleteRegistro(rotaUrl, id_objeto) {
     if (confirm('Deseja confirmar a exclusão?')) {
         $.ajax({
             url: rotaUrl,
@@ -47,12 +47,16 @@ function deleteRegistroPontos(rotaUrl, id_objeto) {
                 })
             },
         }).done(function (data) {
+            console.log('1');
+            console.log(data);
             if (data.success == true) {
                 window.location.reload(); 
             } else {
                 alert('houve um erro')
             };
         }).fail(function(data){
+            console.log('2');
+            console.log(data);
             $.unblockUI();
             alert('não foi possível buscar os dados');
         })
