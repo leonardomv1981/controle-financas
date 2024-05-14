@@ -29,24 +29,29 @@
                         <th>Nome</th>
                         <th>Data</th>
                         <th>descrição</th>
-                        <th>Parcelado?</th>
                         <th>Parcelas</th>
+                        <th>Tipo de gasto</th>
+                        <th>Tipo de gasto</th>
+                        <th>Subtotal</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {{ $subtotal = 0 }}
                     @foreach ($findMovimentacaoCartoes as $movimentacao)
                         <tr>
                             <td>{{ $movimentacao->nome_cartao }}</td>
                             <td>{{ $movimentacao->data }}</td>
                             <td>{{ $movimentacao->descricao }}</td>
-                            <td>{{ $movimentacao->parcelado }}</td>
                             <td>{{ $movimentacao->parcelas }}</td>
+                            <td>{{ $movimentacao->categoria_gasto }}</td>
+                            <td>R$ {{ $movimentacao->valor }}</td>
+                            <td>R$ {{ $subtotal += $movimentacao->valor }}</td>
                             <td>
                                 <a href="" class="btn btn-outline-primary btn-sm">
                                     Editar
                                 </a>
-                                <button onclick="deleteRegistro('{{ route('cartoes.delete') }}', {{ $cartao->id }})" class="btn btn-outline-danger btn-sm">
+                                <button onclick="deleteRegistro('{{ route('movimentacaocartoes.delete') }}', {{ $movimentacao->id }})" class="btn btn-outline-danger btn-sm">
                                     Excluir
                                 </button>
                             </td>

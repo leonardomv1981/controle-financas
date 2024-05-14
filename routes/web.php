@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BancosController;
 use App\Http\Controllers\BandeirasController;
 use App\Http\Controllers\CartoesController;
+use App\Http\Controllers\CategoriagastosController;
 use App\Http\Controllers\MovimentacaocartoesController;
 
 
@@ -49,4 +50,11 @@ Route::prefix('movimentacaocartoes')->group(function () {
     Route::get('/cadastrar', [MovimentacaocartoesController::class, 'cadastrar'])->name('movimentacaocartoes.cadastrar');
     Route::post('/cadastrar', [MovimentacaocartoesController::class, 'cadastrar'])->name('movimentacaocartoes.cadastrar');
     Route::delete('/delete', [MovimentacaocartoesController::class, 'delete'])->name('movimentacaocartoes.delete');
+});
+
+Route::prefix('categoria-gastos')->group(function () {
+    Route::get('/', [CategoriagastosController::class, 'index'])->name('categoria-gastos.listar');
+    Route::get('/cadastrar', [CategoriagastosController::class, 'cadastrar'])->name('categoria-gastos.cadastrar');
+    Route::post('/cadastrar', [CategoriagastosController::class, 'cadastrar'])->name('categoria-gastos.cadastrar');
+    Route::delete('/delete', [CategoriagastosController::class, 'delete'])->name('categoria-gastos.delete');
 });

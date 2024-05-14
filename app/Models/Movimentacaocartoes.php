@@ -22,7 +22,8 @@ class Movimentacaocartoes extends Model
 
     public function getMovimentacaoCartao(string $search = NULL)
     {
-        $movimentacaoCartao = $this->join('cartoes', 'movimentacaocartoes.id_cartao', '=', 'cartoes.id')->get(['movimentacaocartoes.*', 'cartoes.nome as nome_cartao']);
+        $movimentacaoCartao = $this->join('cartoes', 'movimentacaocartoes.id_cartao', '=', 'cartoes.id')->
+        join('categoriagastos', 'movimentacaocartoes.id_categoria', '=', 'categoriagastos.id')->get(['movimentacaocartoes.*', 'cartoes.nome as nome_cartao', 'categoriagastos.descricao as categoria_gasto']);
 
         return $movimentacaoCartao;
     }
