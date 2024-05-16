@@ -11,12 +11,16 @@ class Parcelascartao extends Model
 
     protected $filliable = [
         'id_cartao',
-        'data_inicial',
-        'data_final',
-        'valor',
+        'id_movimentacao',
+        'data_compra',
+        'valor_total',
         'quantidade_parcelas',
         'situacao'
     ];
+
+    public function cadastrar($data) {
+        dd($data);
+    }
 
 
 

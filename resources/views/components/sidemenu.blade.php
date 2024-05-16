@@ -64,6 +64,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2" href="{{ route('categoria-gastos.listar')}}">
+                        <svg class="bi"><use xlink:href="#icone-mais"/></svg>
+                        Categorias de gastos
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2" href="{{ route('movimentacaocartoes.listar') }}">
                         <svg class="bi"><use xlink:href="#icone-mais"/></svg>
                         Movimentação de cartão

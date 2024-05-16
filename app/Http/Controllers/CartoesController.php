@@ -42,6 +42,7 @@ class CartoesController extends Controller
         $cartao->id_bandeira = $data['id_bandeira'];
         $cartao->dia_vencimento = $data['dia_vencimento'];
         $cartao->situacao = $data['situacao'];
+        $cartao->fatura_atual = date('Y-m-01');
         $cartao->save();
 
         return redirect()->route('cartoes.listar');

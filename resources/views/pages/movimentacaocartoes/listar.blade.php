@@ -17,6 +17,12 @@
             </div>
         </div>
     </div>
+    <form action="{{ route('movimentacaocartoes.listar') }}" method="get">
+        <input type="month" name="mes_referencia">
+        <button type="submit">Filtrar</button>
+    </form>
+    
+
     @if($findMovimentacaoCartoes->isEmpty())
         <div class="alert alert-warning" role="alert">
             Nenhuma movimentação de cartão cadastrada.
@@ -31,13 +37,16 @@
                         <th>descrição</th>
                         <th>Parcelas</th>
                         <th>Tipo de gasto</th>
-                        <th>Tipo de gasto</th>
+                        <th>Fatura</th>
+                        <th>valor</th>
                         <th>Subtotal</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{ $subtotal = 0 }}
+                    @php
+                        $subtotal = 0;
+                    @endphp
                     @foreach ($findMovimentacaoCartoes as $movimentacao)
                         <tr>
                             <td>{{ $movimentacao->nome_cartao }}</td>
@@ -45,6 +54,7 @@
                             <td>{{ $movimentacao->descricao }}</td>
                             <td>{{ $movimentacao->parcelas }}</td>
                             <td>{{ $movimentacao->categoria_gasto }}</td>
+                            <td>{{ date('m/Y', strtotime($movimentacao->mes_referencia)) }}</td>
                             <td>R$ {{ $movimentacao->valor }}</td>
                             <td>R$ {{ $subtotal += $movimentacao->valor }}</td>
                             <td>

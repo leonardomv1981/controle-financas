@@ -16,7 +16,7 @@ class Categoriagastos extends Model
 
     public function getCategoriasCadastradas() 
     {
-        $categorias = Categoriagastos::all();
+        $categorias = Categoriagastos::orderBy('descricao', 'asc')->get();
 
         return $categorias;
     }

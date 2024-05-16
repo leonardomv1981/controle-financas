@@ -14,6 +14,7 @@ class Cartoes extends Model
         'id_banco',
         'id_bandeira',
         'dia_vencimento',
+        'fatura_atual',
         'situacao'
     ];
 

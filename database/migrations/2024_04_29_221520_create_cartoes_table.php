@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('id_banco')->constrained('bancos');
             $table->foreignId('id_bandeira')->constrained('bandeiras');
             $table->integer('dia_vencimento');
+            $table->date('fatura_atual')->nullable();
             $table->enum('situacao', ['ativo', 'inativo'])->default('ativo');
             $table->timestamps();
         });
