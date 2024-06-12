@@ -6,6 +6,8 @@ use App\Http\Controllers\BancosController;
 use App\Http\Controllers\BandeirasController;
 use App\Http\Controllers\CartoesController;
 use App\Http\Controllers\CategoriagastosController;
+use App\Http\Controllers\ContasController;
+use App\Http\Controllers\ContasrecorrentesController;
 use App\Http\Controllers\MovimentacaocartoesController;
 
 
@@ -23,6 +25,11 @@ use App\Http\Controllers\MovimentacaocartoesController;
 Route::get('/', function () {
     return view('index');
 });
+
+
+Route::get('/configuracoes', function () {
+    return view('configuracoes');
+})->name('configuracoes');
 
 Route::prefix('bancos')->group(function () {
     Route::get('/', [BancosController::class, 'index'])->name('bancos.listar');
@@ -57,4 +64,17 @@ Route::prefix('categoria-gastos')->group(function () {
     Route::get('/cadastrar', [CategoriagastosController::class, 'cadastrar'])->name('categoria-gastos.cadastrar');
     Route::post('/cadastrar', [CategoriagastosController::class, 'cadastrar'])->name('categoria-gastos.cadastrar');
     Route::delete('/delete', [CategoriagastosController::class, 'delete'])->name('categoria-gastos.delete');
+});
+
+Route::prefix('contas')->group(function () {
+    Route::get('/', [ContasController::class, 'index'])->name('contas.listar');
+    Route::get('/cadastrar', [ContasController::class, 'cadastrar'])->name('contas.cadastrar');
+    Route::post('/cadastrar', [ContasController::class, 'cadastrar'])->name('contas.cadastrar');
+    Route::delete('/delete', [ContasController::class, 'delete'])->name('contas.delete');
+    Route::post('/pagar', [ContasController::class, 'pagar'])->name('contas.pagar');
+});
+
+Route::prefix('contas-recorrentes')->group(function () {
+    Route::post('/pagar', [ContasrecorrentesController::class, 'pagar'])->name('contas-recorrentes.pagar');
+    Route::delete('/delete', [ContasrecorrentesController::class, 'delete'])->name('contas-recorrentes.delete');
 });

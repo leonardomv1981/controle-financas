@@ -3,6 +3,17 @@
 <html lang="en" data-bs-theme="auto">
     <head>
 
+        @yield('scripts')
+        <script src="{{ 'https://code.jquery.com/jquery-3.7.1.min.js' }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
+        <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('js/color-modes.js') }}"></script>
+        <script src="{{ asset('js/jquery.inputmask.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"></script>
+        <script src="{{ asset('js/dashboard.js') }}"></script></body>
+        <script src="{{ asset('js/index.js') }}"></script>
+        <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
@@ -58,16 +69,7 @@
         </div>
     </body>
 
-    @yield('scripts')
-    <script src="{{ 'https://code.jquery.com/jquery-3.7.1.min.js' }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('js/color-modes.js') }}"></script>
-    <script src="{{ asset('js/jquery.maskMoney.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"></script>
-    <script src="{{ asset('js/dashboard.js') }}"></script></body>
-    <script src="{{ asset('js/index.js') }}"></script>
-    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+
 
     
 

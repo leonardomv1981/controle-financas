@@ -46,15 +46,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2" href="{{ route('bancos.listar') }}">
+                    <a class="nav-link d-flex align-items-center gap-2" href="{{ route('contas.listar') }}">
                         <svg class="bi"><use xlink:href="#programas"/></svg>
-                        Bancos
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2" href="{{ route('bandeiras.listar') }}">
-                        <svg class="bi"><use xlink:href="#programas"/></svg>
-                        Bandeiras
+                        Contas
                     </a>
                 </li>
                 <li class="nav-item">
@@ -63,12 +57,7 @@
                         Cartões
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2" href="{{ route('categoria-gastos.listar')}}">
-                        <svg class="bi"><use xlink:href="#icone-mais"/></svg>
-                        Categorias de gastos
-                    </a>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2" href="{{ route('movimentacaocartoes.listar') }}">
                         <svg class="bi"><use xlink:href="#icone-mais"/></svg>
@@ -92,7 +81,7 @@
 
             <ul class="nav flex-column mb-auto">
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2" href="">
+                    <a class="nav-link d-flex align-items-center gap-2" href="{{ route('configuracoes') }}">
                         <svg class="bi"><use xlink:href="#configuracoes"/></svg>
                         Configurações
                     </a>
