@@ -19,9 +19,8 @@ class ContasController extends Controller
     {
         $mesReferencia = $request->mes_referencia;
         $findMovimentacaoContas = $this->contas->getMovimentacaoContas(search: $mesReferencia);
-        $findContasRecorrentes = Contasrecorrentes::getContasRecorrentes($mesReferencia);
 
-        return view('pages.contas.listar', compact('findMovimentacaoContas', 'findContasRecorrentes'));
+        return view('pages.contas.listar', compact('findMovimentacaoContas'));
     }
 
     public function cadastrar (Request $request) {
@@ -33,20 +32,6 @@ class ContasController extends Controller
     
             $data = $request->data['contas'];
 
-            
-
-            if (isset($data['recorrente'])) {
-                $contaRecorrente = new Contasrecorrentes();
-                $contaRecorrente->dia_vencimento = date('d', strtotime($data['data']));
-                $contaRecorrente->id_categoria = $data['id_categoria'];
-                $contaRecorrente->valor = Componentes::formatInputCurrency($data['valor']);
-                $contaRecorrente->descricao = $data['descricao'];
-                $contaRecorrente->situacao = 'ativo';
-                $contaRecorrente->save();
-
-                return redirect()->route('contas.listar'); 
-            }
-
             $conta = new Contas();
             $conta->id_categoria = $data['id_categoria'];
             $conta->data = $data['data'];
@@ -57,7 +42,26 @@ class ContasController extends Controller
                 $conta->pago = 'sim';
             }
             $conta->situacao = $data['situacao'];
-            $conta->save();
+
+            if (isset($data['recorrente'])) {
+                $conta->tipo = 'recorrente';
+                $conta->save();
+                for ($i = 1; $i <= 30; $i++) {
+                    $contaRecorrente = new Contas();
+                    $contaRecorrente->data = date('Y-m-d', strtotime($data['data'] . ' + ' . $i . ' month'));
+                    $contaRecorrente->id_categoria = $data['id_categoria'];
+                    $contaRecorrente->id_conta_pai = $conta->id;
+                    $contaRecorrente->tipo = 'recorrente';
+                    $contaRecorrente->valor = Componentes::formatInputCurrency($data['valor']);
+                    $contaRecorrente->descricao = $data['descricao'];
+                    $contaRecorrente->pago = 'nao';
+                    $contaRecorrente->situacao = 'ativo';
+                    $contaRecorrente->save();
+                }
+            } else {
+                $conta->tipo = 'eventual';
+                $conta->save();
+            }
 
             return redirect()->route('contas.listar');    
         }

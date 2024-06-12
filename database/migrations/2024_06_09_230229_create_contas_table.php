@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->date('data');
             $table->foreignId('id_categoria')->constrained('categoriagastos');
+            $table->integer('id_conta_pai')->nullable();
+            $table->enum('tipo', ['recorrente', 'eventual']);
             $table->decimal('valor', 10, 2);
             $table->string('descricao');
             $table->enum('pago', ['sim', 'nao']);

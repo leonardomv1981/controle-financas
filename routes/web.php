@@ -76,5 +76,5 @@ Route::prefix('contas')->group(function () {
 
 Route::prefix('contas-recorrentes')->group(function () {
     Route::post('/pagar', [ContasrecorrentesController::class, 'pagar'])->name('contas-recorrentes.pagar');
-    Route::delete('/delete', [ContasrecorrentesController::class, 'delete'])->name('contas-recorrentes.delete');
+    Route::DELETE('/delete', [ContasrecorrentesController::class, 'delete'])->name('contas-recorrentes.delete');
 });

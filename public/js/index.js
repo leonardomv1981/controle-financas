@@ -30,11 +30,14 @@ $(document).ready(function () {
     
 });
 
-function deleteRegistro(rotaUrl, id_objeto) {
+function deleteRegistro(rotaUrl, id_objeto, metodo) {
+    if (metodo == undefined) {
+        metodo = 'DELETE';
+    }
     if (confirm('Deseja confirmar a exclusão?')) {
         $.ajax({
             url: rotaUrl,
-            method: 'DELETE',
+            method: metodo,
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
             data: {
                 id: id_objeto,

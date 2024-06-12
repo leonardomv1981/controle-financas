@@ -37,7 +37,7 @@
         </div>
         <div class="card col">
             <div class="card-body">
-                <a class="nav-link d-flex align-items-center gap-2" href="{{ route('bandeiras.listar') }}">
+                <a class="nav-link d-flex align-items-center gap-2" href="{{ route('categoria-gastos.listar') }}">
                     <svg class="bi"><use xlink:href="#icone-mais"/></svg>
                     Categoria de gastos
                 </a>
