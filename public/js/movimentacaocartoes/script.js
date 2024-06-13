@@ -1,0 +1,3 @@
+function fecharFatura () {
+    alert();
+}

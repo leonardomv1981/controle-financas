@@ -6,6 +6,7 @@ use App\Models\Movimentacaocartoes;
 use App\Models\Bancos;
 use App\Models\Cartoes;
 use App\Models\Categoriagastos;
+use App\Models\Componentes;
 use App\Models\Parcelascartao;
 use Illuminate\Http\Request;
 
@@ -33,8 +34,6 @@ class MovimentacaocartoesController extends Controller
         return response()->json(['success' => true]);
     }
 
-    
-
     public function cadastrar (Request $request) {
         if ($request->isMethod('get')) {
             $data['cartoes'] = Cartoes::all();
@@ -51,7 +50,7 @@ class MovimentacaocartoesController extends Controller
         $movimentacaoCartoes->id_cartao = $data['id_cartao'];
         $movimentacaoCartoes->id_categoria = $data['id_categoria'];
         $movimentacaoCartoes->data = $data['data'];
-        $movimentacaoCartoes->valor = str_replace(',', '.', $data['valor']) / $data['parcelas'];
+        $movimentacaoCartoes->valor = Componentes::formatInputCurrency($data['valor']) / $data['parcelas'];
         $movimentacaoCartoes->mes_referencia = $fatura_atual;
         $movimentacaoCartoes->descricao = $data['descricao'];
         $movimentacaoCartoes->parcelas = $data['parcelas'];
@@ -65,7 +64,7 @@ class MovimentacaocartoesController extends Controller
                 $movimentacaoCartoes->id_cartao = $data['id_cartao'];
                 $movimentacaoCartoes->id_categoria = $data['id_categoria'];
                 $movimentacaoCartoes->data = $data['data'];
-                $movimentacaoCartoes->valor = str_replace(',', '.', $data['valor']) / $data['parcelas'];
+                $movimentacaoCartoes->valor = Componentes::formatInputCurrency($data['valor']) / $data['parcelas'];
                 $movimentacaoCartoes->mes_referencia = date('Y-m-01', strtotime($fatura_atual . '+' . $i . ' months'));
                 $movimentacaoCartoes->descricao = $data['descricao'] . " - parcela " . $i + 1 . "/" . $data['parcelas'];
                 $movimentacaoCartoes->parcelas = $data['parcelas'];
@@ -76,5 +75,11 @@ class MovimentacaocartoesController extends Controller
         };
         
         return redirect()->route('movimentacaocartoes.listar');
+    }
+
+    public function fecharFatura(Request $request) {
+        
+        $data = $request->all();
+        dd($data);
     }
 }

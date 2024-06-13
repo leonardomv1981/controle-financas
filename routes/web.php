@@ -57,6 +57,7 @@ Route::prefix('movimentacaocartoes')->group(function () {
     Route::get('/cadastrar', [MovimentacaocartoesController::class, 'cadastrar'])->name('movimentacaocartoes.cadastrar');
     Route::post('/cadastrar', [MovimentacaocartoesController::class, 'cadastrar'])->name('movimentacaocartoes.cadastrar');
     Route::delete('/delete', [MovimentacaocartoesController::class, 'delete'])->name('movimentacaocartoes.delete');
+    Route::post('/fechar-fatura', [MovimentacaocartoesController::class, 'fecharFatura'])->name('movimentacaocartoes.fechar-fatura'); 
 });
 
 Route::prefix('categoria-gastos')->group(function () {

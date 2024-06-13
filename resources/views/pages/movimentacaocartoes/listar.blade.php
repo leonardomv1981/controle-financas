@@ -1,5 +1,7 @@
 @extends('index')
 
+<script src="{{ asset('js/movimentacaocartoes/script.js') }}"></script>
+
 @section('content')
 
     <meta name="csrf_token" content="{{ csrf_token() }}">
@@ -18,8 +20,7 @@
         </div>
     </div>
     <form action="{{ route('movimentacaocartoes.listar') }}" method="get">
-        <input type="month" name="mes_referencia">
-        <button type="submit">Filtrar</button>
+        Pesquisar: <input type="month" name="mes_referencia" value="{{ request('mes_referencia', date('Y-m')) }}" onchange="this.form.submit()">
     </form>
     
 
@@ -50,7 +51,7 @@
                     @foreach ($findMovimentacaoCartoes as $movimentacao)
                         <tr>
                             <td>{{ $movimentacao->nome_cartao }}</td>
-                            <td>{{ $movimentacao->data }}</td>
+                            <td>{{ date('d/m/Y', strtotime($movimentacao->data)) }}</td>
                             <td>{{ $movimentacao->descricao }}</td>
                             <td>{{ $movimentacao->parcelas }}</td>
                             <td>{{ $movimentacao->categoria_gasto }}</td>
@@ -58,6 +59,9 @@
                             <td>R$ {{ $movimentacao->valor }}</td>
                             <td>R$ {{ $subtotal += $movimentacao->valor }}</td>
                             <td>
+                                <button class="btn btn-outline-primary btn-sm" onclick="fecharFatura('{{ route('movimentacaocartoes.fechar-fatura') }}', {{ $movimentacao->id }})">
+                                    Fechar fatura
+                                </button>
                                 <a href="" class="btn btn-outline-primary btn-sm">
                                     Editar
                                 </a>

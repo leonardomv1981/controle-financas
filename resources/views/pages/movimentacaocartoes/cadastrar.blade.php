@@ -70,11 +70,20 @@
     </div>
 
     <script> 
-        $('#valor').maskMoney({
-             prefix: "R$: ",
-             decimal: ",",
-             thousands: "."
-         });
+        $(document).ready(function(){
+            Inputmask("R$ (.999){+|1},99", {
+                positionCaretOnClick: "radixFocus",
+                radixPoint: ".",
+                _radixDance: true,
+                numericInput: true,
+                placeholder: "0",
+                definitions: {
+                    "0": {
+                        validator: "[0-9\uFF11-\uFF19]"
+                    }
+                }
+            }).mask('#valor');
+        });
     </script>
     
     
