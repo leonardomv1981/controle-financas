@@ -27,7 +27,10 @@ class Contas extends Model
                 ->whereBetween('data', [$search, $lastDayOfMonth]);
         } else {
             $mes_referencia = date('Y-m-01');
-            $movimentacaoContas = $this->join('categoriagastos', 'contas.id_categoria', '=', 'categoriagastos.id')->get(['contas.*', 'categoriagastos.descricao as categoria_gasto'])->where('data', '>=', "%$mes_referencia%");
+            $lastDayOfMonth = date('Y-m-t', strtotime($mes_referencia));
+            $movimentacaoContas = $this->join('categoriagastos', 'contas.id_categoria', '=', 'categoriagastos.id')
+                ->get(['contas.*', 'categoriagastos.descricao as categoria_gasto'])
+                ->whereBetween('data', [$mes_referencia, $lastDayOfMonth]);
         }
         
 

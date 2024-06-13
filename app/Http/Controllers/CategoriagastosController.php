@@ -33,4 +33,12 @@ class CategoriagastosController extends Controller
 
         return redirect()->route('categoria-gastos.listar');
     }
+
+    public function delete(Request $request)
+    {
+        $categoria = Categoriagastos::find($request->id);
+        $categoria->delete();
+
+        return response()->json(['success' => true]);
+    }
 }

@@ -51,12 +51,6 @@
                         Contas
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2" href="{{ route('cartoes.listar')}}">
-                        <svg class="bi"><use xlink:href="#icone-mais"/></svg>
-                        Cartões
-                    </a>
-                </li>
 
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2" href="{{ route('movimentacaocartoes.listar') }}">

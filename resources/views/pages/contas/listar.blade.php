@@ -21,56 +21,66 @@
         </div>
     </div>
 
-    <div class="table-responsive">
-        <table class="table table-striped table-sm">
-            <thead>
-                <tr>
-                    <th>Tipo</th>
-                    <th>Vencimento</th>
-                    <th>Categoria</th>
-                    <th>Descricao</th>
-                    <th>Valor</th>
-                    <th>Subtotal</th>
-                    <th>Pago?</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php
-                    $subTotal = 0;
-                @endphp
-                @foreach ($findMovimentacaoContas as $conta)
+    <form action="{{ route('contas.listar') }}" method="get">
+        <input type="month" name="mes_referencia" value="{{ request('mes_referencia', date('Y-m')) }}" onchange="this.form.submit()">
+    </form>
+    
+    @if($findMovimentacaoContas->isEmpty())
+        <div class="alert alert-warning" role="alert">
+            Nenhuma conta cadastrada para este mês.
+        </div>
+    @else
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
                     <tr>
-                        <td>ddd</td>
-                        <td>{{ date('d/m/Y', strtotime($conta->data)) }}</td>
-                        <td>{{ $conta->categoria_gasto }}</td>
-                        <td>{{ $conta->descricao }}</td>
-                        <td>R$ {{ number_format($conta->valor, 2, ',', '.') }}</td>
-                        <td>R$ {{ number_format($subTotal += $conta->valor, 2, ',', '.') }}</td>
-                        <td>
-                            <input type="checkbox" name="data[contas][pago]" class="btn-check btn-sm" id="btncheck{{$conta->id}}" autocomplete="off" {{ $conta->pago == 'sim' ? 'checked' : '' }} onclick="changePay('{{ route('contas.pagar') }}', {{ $conta->id }}, '{{ $conta->pago }}')" >
-                            <label class="btn btn-sm btn-outline-primary" for="btncheck{{$conta->id}}">Pago</label>
-                        </td>
-                        <td>
-                            <a href="" class="btn btn-outline-primary btn-sm">
-                                Editar
-                            </a>
-                            <button onclick="deleteRegistro('{{ route('contas.delete') }}', {{ $conta->id }})" class="btn btn-outline-danger btn-sm">
-                                Excluir
-                            </button>
-                        </td>
+                        <th>Tipo</th>
+                        <th>Vencimento</th>
+                        <th>Categoria</th>
+                        <th>Descricao</th>
+                        <th>Valor</th>
+                        <th>Subtotal</th>
+                        <th>Pago?</th>
+                        <th>Ações</th>
                     </tr>
-                @endforeach
-                <tr>
-                    <td colspan="4">Total</td>
-                    <td>R$ {{ str_replace('.', ',', $subTotal) }}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    @php
+                        $subTotal = 0;
+                    @endphp
+                    @foreach ($findMovimentacaoContas as $conta)
+                        <tr>
+                            <td>{{ $conta->tipo }}</td>
+                            <td>{{ date('d/m/Y', strtotime($conta->data)) }}</td>
+                            <td>{{ $conta->categoria_gasto }}</td>
+                            <td>{{ $conta->descricao }}</td>
+                            <td>R$ {{ number_format($conta->valor, 2, ',', '.') }}</td>
+                            <td>R$ {{ number_format($subTotal += $conta->valor, 2, ',', '.') }}</td>
+                            <td>
+                                <input type="checkbox" name="data[contas][pago]" class="btn-check btn-sm" id="btncheck{{$conta->id}}" autocomplete="off" {{ $conta->pago == 'sim' ? 'checked' : '' }} onclick="changePay('{{ route('contas.pagar') }}', {{ $conta->id }}, '{{ $conta->pago }}')" >
+                                <label class="btn btn-sm btn-outline-primary" for="btncheck{{$conta->id}}">Pago</label>
+                            </td>
+                            <td>
+                                <a href="" class="btn btn-outline-primary btn-sm">
+                                    Editar
+                                </a>
+                                <button onclick="deleteRegistro('{{ route('contas.delete') }}', {{ $conta->id }})" class="btn btn-outline-danger btn-sm">
+                                    Excluir
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
+                    <tr>
+                        <td colspan="4">Total</td>
+                        <td>R$ {{ number_format($subTotal, 2, ',', '.') }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    @endif
 @endsection
 
 
