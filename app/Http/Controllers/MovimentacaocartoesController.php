@@ -80,6 +80,24 @@ class MovimentacaocartoesController extends Controller
     public function fecharFatura(Request $request) {
         
         $data = $request->all();
-        dd($data);
+
+        $findMovimentacao = $this->movimentacaoCartoes->where('id', $data['id'])->get();
+        $mesReferencia = $findMovimentacao[0]->mes_referencia;
+        $id_cartao = $findMovimentacao[0]->id_cartao;
+
+        $cartao = Cartoes::find($id_cartao);
+        $cartao->fatura_atual = date('Y-m-01', strtotime($mesReferencia . '+1 month'));
+        $cartao->save();
+
+        $totalValor = $this->movimentacaoCartoes
+            ->where('situacao', 'ativo')
+            ->where('id_cartao', $id_cartao)
+            ->where('mes_referencia', $mesReferencia)
+            ->sum('valor');
+
+        $categorias = Categoriagastos::orderBy('descricao')->get();
+
+        return view('pages.movimentacaocartoes.fechar', compact('totalValor', 'mesReferencia', 'cartao', 'categorias'));
+
     }
 }

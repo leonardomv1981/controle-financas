@@ -59,7 +59,7 @@
                             <td>R$ {{ $movimentacao->valor }}</td>
                             <td>R$ {{ $subtotal += $movimentacao->valor }}</td>
                             <td>
-                                <button class="btn btn-outline-primary btn-sm" onclick="fecharFatura('{{ route('movimentacaocartoes.fechar-fatura') }}', {{ $movimentacao->id }})">
+                                <button class="btn btn-outline-primary btn-sm" onclick="fecharFatura({'route': '{{ route('movimentacaocartoes.fechar-fatura') }}', 'id_objeto': '{{ $movimentacao->id }}'})">
                                     Fechar fatura
                                 </button>
                                 <a href="" class="btn btn-outline-primary btn-sm">
