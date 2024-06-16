@@ -24,56 +24,77 @@
     </form>
     
 
-    @if($findMovimentacaoCartoes->isEmpty())
+    @if(empty($findMovimentacaoCartoes))
         <div class="alert alert-warning" role="alert">
             Nenhuma movimentação de cartão cadastrada.
         </div>
     @else
-        <div class="table-responsive">
-            <table class="table table-striped table-sm">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Data</th>
-                        <th>descrição</th>
-                        <th>Parcelas</th>
-                        <th>Tipo de gasto</th>
-                        <th>Fatura</th>
-                        <th>valor</th>
-                        <th>Subtotal</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $subtotal = 0;
-                    @endphp
-                    @foreach ($findMovimentacaoCartoes as $movimentacao)
-                        <tr>
-                            <td>{{ $movimentacao->id}} {{ $movimentacao->nome_cartao }}</td>
-                            <td>{{ date('d/m/Y', strtotime($movimentacao->data)) }}</td>
-                            <td>{{ $movimentacao->descricao }}</td>
-                            <td>{{ $movimentacao->parcelas }}</td>
-                            <td>{{ $movimentacao->categoria_gasto }}</td>
-                            <td>{{ date('m/Y', strtotime($movimentacao->mes_referencia)) }}</td>
-                            <td>R$ {{ $movimentacao->valor }}</td>
-                            <td>R$ {{ $subtotal += $movimentacao->valor }}</td>
-                            <td>
-                                <button class="btn btn-outline-primary btn-sm" onclick="fecharFatura({'route': '{{ route('movimentacaocartoes.fechar-fatura') }}', 'id_objeto': '{{ $movimentacao->id }}'})">
-                                    Fechar fatura
-                                </button>
-                                <a href="" class="btn btn-outline-primary btn-sm">
-                                    Editar
-                                </a>
-                                <button onclick="deleteRegistro('{{ route('movimentacaocartoes.delete') }}', {{ $movimentacao->id }})" class="btn btn-outline-danger btn-sm">
-                                    Excluir
-                                </button>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+    
+    <div class="accordion" id="accordionExample">
+
+        @foreach ($findMovimentacaoCartoes as $movimentacaoCartoes)
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{$movimentacaoCartoes[0]['id_cartao']}}" aria-expanded="false" aria-controls="collapse_{{$movimentacaoCartoes[0]['id_cartao']}}">
+                        {{ $movimentacaoCartoes[0]['nome_cartao'] }} - R$ {{ $subtotal }}
+                    </button>
+                    </button>
+                </h2>
+                <div id="collapse_{{$movimentacaoCartoes[0]['id_cartao']}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Data</th>
+                                        <th>descrição</th>
+                                        <th>Parcelas</th>
+                                        <th>Tipo de gasto</th>
+                                        <th>Fatura</th>
+                                        <th>valor</th>
+                                        <th>Subtotal</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $subtotal = 0;
+                                    @endphp
+                                    @foreach ($movimentacaoCartoes as $movimentacao)
+                                        <tr>
+                                            <td>{{ $movimentacao['id']}} {{ $movimentacao['nome_cartao'] }}</td>
+                                            <td>{{ date('d/m/Y', strtotime($movimentacao['data'])) }}</td>
+                                            <td>{{ $movimentacao['descricao'] }}</td>
+                                            <td>{{ $movimentacao['parcelas'] }}</td>
+                                            <td>{{ $movimentacao['categoria_gasto'] }}</td>
+                                            <td>{{ date('m/Y', strtotime($movimentacao['mes_referencia'])) }}</td>
+                                            <td>R$ {{ $movimentacao['valor'] }}</td>
+                                            <td>R$ {{ $subtotal += $movimentacao['valor'] }}</td>
+                                            <td>
+                                                <button class="btn btn-outline-primary btn-sm" onclick="fecharFatura({'route': '{{ route('movimentacaocartoes.fechar-fatura') }}', 'id_objeto': '{{ $movimentacao['id'] }}'})">
+                                                    Fechar fatura
+                                                </button>
+                                                <a href="" class="btn btn-outline-primary btn-sm">
+                                                    Editar
+                                                </a>
+                                                <button onclick="deleteRegistro('{{ route('movimentacaocartoes.delete') }}', {{ $movimentacao['id'] }})" class="btn btn-outline-danger btn-sm">
+                                                    Excluir
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        @endforeach
+    </div>
+        
     @endif
 @endsection
 

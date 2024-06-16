@@ -30,7 +30,8 @@ class Movimentacaocartoes extends Model
             $movimentacaoCartao = $this->join('cartoes', 'movimentacaocartoes.id_cartao', '=', 'cartoes.id')->
         join('categoriagastos', 'movimentacaocartoes.id_categoria', '=', 'categoriagastos.id')->get(['movimentacaocartoes.*', 'cartoes.nome as nome_cartao', 'categoriagastos.descricao as categoria_gasto'])->where('mes_referencia', $mes_referencia);
         }
-        
+
+        $movimentacaoCartao = $movimentacaoCartao->groupBy('id_cartao')->toArray();
 
         return $movimentacaoCartao;
     }
