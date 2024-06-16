@@ -50,7 +50,7 @@
                     @endphp
                     @foreach ($findMovimentacaoCartoes as $movimentacao)
                         <tr>
-                            <td>{{ $movimentacao->nome_cartao }}</td>
+                            <td>{{ $movimentacao->id}} {{ $movimentacao->nome_cartao }}</td>
                             <td>{{ date('d/m/Y', strtotime($movimentacao->data)) }}</td>
                             <td>{{ $movimentacao->descricao }}</td>
                             <td>{{ $movimentacao->parcelas }}</td>

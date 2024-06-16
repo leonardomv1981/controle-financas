@@ -89,6 +89,20 @@ class MovimentacaocartoesController extends Controller
         $cartao->fatura_atual = date('Y-m-01', strtotime($mesReferencia . '+1 month'));
         $cartao->save();
 
+        $findMovimentacoesPosteriores = $this->movimentacaoCartoes
+            ->where('situacao', 'ativo')
+            ->where('id_cartao', $id_cartao)
+            ->where('mes_referencia', '=', $mesReferencia)
+            ->where('id', '>', $data['id'])
+            ->where('parcelado', 'nao')
+            ->get(['id', 'mes_referencia']);
+
+        foreach ($findMovimentacoesPosteriores as $movimentacaoPosterior) {
+            $movimentacao = Movimentacaocartoes::find($movimentacaoPosterior->id);
+            $movimentacao->mes_referencia = date('Y-m-01', strtotime($movimentacaoPosterior->mes_referencia . '+1 month'));
+            $movimentacao->save();
+        }
+
         $totalValor = $this->movimentacaoCartoes
             ->where('situacao', 'ativo')
             ->where('id_cartao', $id_cartao)
