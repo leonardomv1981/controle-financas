@@ -37,8 +37,7 @@
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{$movimentacaoCartoes[0]['id_cartao']}}" aria-expanded="false" aria-controls="collapse_{{$movimentacaoCartoes[0]['id_cartao']}}">
-                        {{ $movimentacaoCartoes[0]['nome_cartao'] }} - R$ {{ $subtotal }}
-                    </button>
+                        {{ $movimentacaoCartoes[0]['nome_cartao'] }} - Total: R$ {{ (number_format($somatorio[$movimentacaoCartoes[0]['id_cartao']], 2, ',', '.')) }}
                     </button>
                 </h2>
                 <div id="collapse_{{$movimentacaoCartoes[0]['id_cartao']}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -47,7 +46,7 @@
                             <table class="table table-striped table-sm">
                                 <thead>
                                     <tr>
-                                        <th>Nome</th>
+                                        <th>Cartão</th>
                                         <th>Data</th>
                                         <th>descrição</th>
                                         <th>Parcelas</th>
@@ -64,27 +63,32 @@
                                     @endphp
                                     @foreach ($movimentacaoCartoes as $movimentacao)
                                         <tr>
-                                            <td>{{ $movimentacao['id']}} {{ $movimentacao['nome_cartao'] }}</td>
+                                            <td>{{ $movimentacao['nome_cartao'] }}</td>
                                             <td>{{ date('d/m/Y', strtotime($movimentacao['data'])) }}</td>
                                             <td>{{ $movimentacao['descricao'] }}</td>
                                             <td>{{ $movimentacao['parcelas'] }}</td>
                                             <td>{{ $movimentacao['categoria_gasto'] }}</td>
                                             <td>{{ date('m/Y', strtotime($movimentacao['mes_referencia'])) }}</td>
-                                            <td>R$ {{ $movimentacao['valor'] }}</td>
-                                            <td>R$ {{ $subtotal += $movimentacao['valor'] }}</td>
+                                            <td>R$ {{ number_format($movimentacao['valor'], 2, ',', '.') }}</td>
+                                            <td>R$ {{ number_format($subtotal += $movimentacao['valor'], 2, ',', '.') }}</td>
                                             <td>
                                                 <button class="btn btn-outline-primary btn-sm" onclick="fecharFatura({'route': '{{ route('movimentacaocartoes.fechar-fatura') }}', 'id_objeto': '{{ $movimentacao['id'] }}'})">
                                                     Fechar fatura
                                                 </button>
                                                 <a href="" class="btn btn-outline-primary btn-sm">
-                                                    Editar
+                                                    <i class="bi bi-pen"></i>
                                                 </a>
                                                 <button onclick="deleteRegistro('{{ route('movimentacaocartoes.delete') }}', {{ $movimentacao['id'] }})" class="btn btn-outline-danger btn-sm">
-                                                    Excluir
+                                                    <i class="bi bi-x"></i>
                                                 </button>
                                             </td>
                                         </tr>
                                     @endforeach
+                                    <tr>
+                                        <td colspan="7">Total</td>
+                                        <td>R$ {{ number_format($subtotal, 2, ',', '.') }}</td>
+                                        <td></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

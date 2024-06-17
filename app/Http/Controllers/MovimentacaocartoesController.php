@@ -23,8 +23,15 @@ class MovimentacaocartoesController extends Controller
     
         $mesReferencia = $request->mes_referencia;
         $findMovimentacaoCartoes = $this->movimentacaoCartoes->getMovimentacaoCartao(search: $mesReferencia);
+
+        $somatorio = [];
         
-        return view('pages.movimentacaocartoes.listar', compact('findMovimentacaoCartoes'));
+        foreach ($findMovimentacaoCartoes as $movimentacaoCartao) {
+            $soma = $this->movimentacaoCartoes->getSoma(['id_cartao' => $movimentacaoCartao[0]['id_cartao'], 'mes_referencia' => $mesReferencia]);
+            $somatorio[$movimentacaoCartao[0]['id_cartao']] = $soma;
+        }
+        
+        return view('pages.movimentacaocartoes.listar', compact('findMovimentacaoCartoes', 'somatorio'));
     }
 
     public function delete (Request $request) {
